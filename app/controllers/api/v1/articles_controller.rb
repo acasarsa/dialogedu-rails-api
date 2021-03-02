@@ -1,35 +1,49 @@
 module Api 
   module V1 
     class ArticlesController < ApplicationController
+      before_action :find_article, only: [:show, :update, :destroy]
 
       def index 
         articles = Article.all
-        render json: articles
+        if params[:search]
+          # filtered_articles = Article.search(params[:search])
+          filtered_articles = Article.where(articles.include? params[:search] )
+          render json: filtered_articles
+        else 
+          render json: articles
+        end
       end
 
       def show 
-        article = Article.find(params[:id])
-        render json: article 
+        render json: @article 
       end
 
       def create 
         article = Article.create(article_params)
-        render json: article
+        if article.valid? 
+          render json: article
+        else 
+          render json: article.errors, status: :unprocessable_entity
+        end
       end
 
       def update 
-        article.update(article_params)
-        render json: article 
+        @article.update(article_params)
+        if @article.valid? 
+          render json: @article
+        else 
+          render json: @article.errors, status: :unprocessable_entity
+        end 
       end
       
       def destroy
-        article.destroy
+        @article.destroy
       end
 
       private 
 
       def find_article
-        article = Article.find(params[:id])
+        @article = Article.find(params[:id])
       end
 
       def article_params 
