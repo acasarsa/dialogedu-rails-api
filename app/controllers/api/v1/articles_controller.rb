@@ -6,7 +6,7 @@ module Api
       def index 
         if params[:search]
           articles = Article.where("title LIKE ?", "%" + params[:search] + "%").or(Article.where("body LIKE ?", "%" + params[:search] + "%"))
-          render json: articles.empty? ? error_method : articles, include: [:comments]
+          render json: articles.empty? ? error_message : articles, include: [:comments]
         else 
           articles = Article.all
           render json: articles, include: [:comments]
@@ -48,7 +48,7 @@ module Api
       def article_params 
         params.require(:article).permit(:title, :body, :search)
       end
-      def error_method
+      def error_message
         {
           "error": "no results found"
         }
