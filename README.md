@@ -1,4 +1,37 @@
-# README
+# Dialogedu Rails Assessment API
+
+## System Requirements
+- [Git](https://git-scm.com/) 2.19.2
+- [Rails](https://github.com/rails/rails) 6.1.3
+- [Ruby](https://github.com/ruby/ruby) 3.0.0
+
+## Setup 
+```
+git clone https://github.com/acasarsa/dialogedu-rails-api.git
+cd dialogedu-rails-api
+```
+Once in the directory you can 
+
+``` 
+bundle install
+rails db:create
+rails db:migrate
+rails s
+```
+
+## Run Tests
+
+``` 
+bundle install
+rake db:create
+RAILS_ENV=test rake db:migrate
+rspec
+```
+## Test Endpoints with Postman 
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/3274caddd0434f129418)
+
+In order to test endpoints with Postman you can follow that link and after running a POST request you'll be able to use that id(s) for the other routes. I used CAPITAL LETTERS to designate where you need to put the id value. 
 
 ## Deliverables
 
