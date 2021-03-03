@@ -34,8 +34,8 @@
   same as POST
 - [x] DELETE /articles/:id
 
-- [] GET /comments
-- [] GET /comments?article_id=1
+- [x] GET /comments
+- [x] GET /comments?article_id=1
   should filter comments by specific article
 - [] GET /comments/:id
 - [] POST /comments

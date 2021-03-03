@@ -48,10 +48,13 @@ RSpec.describe "Articles", type: :request do
 
   context "POST #create" do 
     it "creates article with valid attributes" do 
-      post '/api/v1/articles', params: {article: article_params}
-      expect(Article.count).to eq(1)
-      expect(response).to have_http_status(200)
-      expect(response.content_type).to eq("application/json; charset=utf-8")
+      expect do 
+
+        post '/api/v1/articles', params: {article: article_params}
+          
+        expect(response).to have_http_status(200)
+        expect(response.content_type).to eq("application/json; charset=utf-8")
+      end.to change(Article, :count).by(1)
     end
   end
 
