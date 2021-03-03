@@ -4,12 +4,11 @@ module Api
       before_action :find_article, only: [:show, :update, :destroy]
 
       def index 
-        articles = Article.all
         if params[:search]
-          # filtered_articles = Article.search(params[:search])
-          filtered_articles = Article.where(articles.include? params[:search] )
-          render json: filtered_articles
+          articles = Article.where("title LIKE ?", "%" + params[:search] + "%").or(Article.where("body LIKE ?", "%" + params[:search] + "%"))
+          render json: articles.empty? ? error_method : articles
         else 
+          articles = Article.all
           render json: articles
         end
       end
@@ -49,6 +48,12 @@ module Api
       def article_params 
         params.require(:article).permit(:title, :body, :search)
       end
+      def error_method
+        {
+          "error": "no results found"
+        }
+      end
+
     end
   end
 end
