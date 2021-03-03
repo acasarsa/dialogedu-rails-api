@@ -6,10 +6,10 @@ module Api
       def index 
         if params[:search]
           articles = Article.where("title LIKE ?", "%" + params[:search] + "%").or(Article.where("body LIKE ?", "%" + params[:search] + "%"))
-          render json: articles.empty? ? error_method : articles
+          render json: articles.empty? ? error_method : articles, include: [:comments]
         else 
           articles = Article.all
-          render json: articles
+          render json: articles, include: [:comments]
         end
       end
 
